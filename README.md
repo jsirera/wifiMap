@@ -46,4 +46,7 @@ Other included libraries:
 -Edit 'config.php' to configure and config.js files.
 -Create a Key for Google Maps API and copy...
 
+### Screenshot
+[[https://github.com/jsirera/repository/blob/master/img/octocat.png|alt=octocat]]
 
+![alt tag](https://cloud.githubusercontent.com/assets/12016131/12074555/f0ec7c08-b15a-11e5-9f9c-bb5662ec47ba.JPG "Sample screenshot")
