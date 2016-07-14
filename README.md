@@ -6,9 +6,17 @@ wifiMap is a visual representation of the Ubiquiti Unifi users on Google Maps, w
 ### Features
 wifiMap tool offers the following features:
 - Show AP and stations associated with each AP.
-- Every station is moving arround his AP at 
+- Every station is moving arround his AP at signal equivalent distance.
+- Search stations by:
+	<ul><li>Name (unifi UI)</li>
+	<li>Note (unifi UI)</li>
+	<li>Device type</li>
+	<li>SSID</li>
+	<li>MAC</li>
+	<li>IP</li>
+	<li>Radius user name (if you use RADIUS Auth Server for wireless network credentials)</li><ul>
+ - 
 
-Please note that the bundled API client supports many more API endpoints, not all make sense to add to the API browser though.
 
 ### Credits
 The PHP API client that comes bundled with this tool is based on the work done by the following developers:
