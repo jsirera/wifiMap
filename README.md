@@ -14,8 +14,10 @@ wifiMap tool offers the following features:
 	<li>SSID</li>
 	<li>MAC</li>
 	<li>IP</li>
-	<li>Radius user name (if you use RADIUS Auth Server for wireless network credentials)</li><ul>
- - 
+	<li>Radius user name (if you use RADIUS Auth Server for wireless network credentials)</li></ul>
+ - You can view AP and station properties by click.
+ - AP and labels cant be hidden by checkbox.
+ - The ability to show some stations with different color putting a text on the note station properties in unifi Controler
 
 
 ### Credits
