@@ -43,8 +43,9 @@ Other included libraries:
 -Download project files or clone to published folder of your web server (with PHP support).
 
 ### Configuration
--Edit 'config.php' to configure and config.js files.
--Create a Key for Google Maps API and copy...
+-Edit 'config.php' to configure credentials for Ubiquiti Unifi Controller. Site ID, IP, port, user and password.
+-Edit 'config.js' to configure additional settings like FPS, refresh time... (see file for more details)
+-Edit index.html and replace my Google Maps API Key with your KEY.
 
 ### Screenshot
 
