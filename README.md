@@ -49,4 +49,4 @@ Other included libraries:
 ### Screenshot
 [[https://github.com/jsirera/repository/blob/master/img/octocat.png|alt=octocat]]
 
-![alt tag](https://cloud.githubusercontent.com/assets/12016131/12074555/f0ec7c08-b15a-11e5-9f9c-bb5662ec47ba.JPG "Sample screenshot")
+![alt tag](https://github.com/jsirera/repository/wifiMap/master/images/exemple.jpg "Sample screenshot")
