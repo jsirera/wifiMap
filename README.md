@@ -47,6 +47,5 @@ Other included libraries:
 -Create a Key for Google Maps API and copy...
 
 ### Screenshot
-[[https://github.com/jsirera/repository/blob/master/img/octocat.png|alt=octocat]]
 
-![alt tag](https://github.com/jsirera/repository/wifiMap/master/images/exemple.jpg "Sample screenshot")
+![alt tag](https://github.com/jsirera/wifiMap/blob/master/images/example.jpg "Sample screenshot")
