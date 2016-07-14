@@ -1,0 +1,78 @@
+html, body { 
+	height: 100%;
+	margin: 0;
+	padding: 0; 
+}
+
+#inputCerca {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+    width: 300px;
+    }
+
+#inputCerca:focus {
+    border-color: #4d90fe;
+}
+
+
+.controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.labelsCheckbox {
+	
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 0px 11px 0 13px;
+	text-overflow: ellipsis;
+    width: 300px;
+    }
+
+.divControls {
+	background-color: #fff;
+	margin-left: 12px;
+	padding: 5px 11px 0 13px;
+	width: 300px;
+}	
+
+#map { height: 100%; }
+	  
+.etiquetaAP {
+	background: rgba(0,0,0, 0.4);
+	color: white;
+	border: 0px solid black;
+	border-radius: 3px;
+	position: absolute;
+	padding: 5px;
+	margin-left: -20px;
+	z-index: 2;
+}
+
+.etiquetaUsuari {
+	background: rgba(0,0,0, 0.4);
+	color: white;
+	border: 0px solid black;
+	border-radius: 3px;
+	position: absolute;
+	padding: 5px;
+	margin-left: -20px;
+	z-index: 6;
+}
+.finestraPropietats{
+	position: relative;
+	z-index: 10;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script src="jquery/jquery-1.12.0.min.js"></script>
+	<!-- Change Google Maps API KEY! -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF4meMeSyCp5oPqAKf2z0yn5oJVtTENtI&libraries=places"></script>
+	<script src="js/TxtOverlay.js"></script>
+	<script src="config.js"></script>
+	<script src="js/wifiMap.js"></script>
+    <link rel="stylesheet" href="css/estils2.css">
+  </head>
+  <body>
+	<input id="inputCerca" class="controls" type="text" placeholder="Cerca usuaris">
+	<div class="divControls controls" id="divControls">
+		<a href="#"><img id="botoRecarregar" src="images/refresh.png" alt="recargar"></a>
+		<label class="labelsCheckbox"><input id="checkboxAP" type="checkbox" checked>APs</label>
+		<label class="labelsCheckbox"><input id="checkboxEtiquetes" type="checkbox" checked>Noms</label>
+	</div>
+    <div id="map"></div>
+	<script>
+	$(document).ready(function(){
+		//Arrenca-ho tot!
+		start(document.getElementById("map"), document.getElementById("divControls"), document.getElementById("inputCerca"), document.getElementById("botoRecarregar"), document.getElementById("checkboxAP"),document.getElementById("checkboxEtiquetes"));
+	});
+	</script>
+   </body>
+</html>
