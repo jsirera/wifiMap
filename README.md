@@ -1,4 +1,4 @@
-# wifiMap
+# wifiMap - Unifi users on google maps
 wifiMap is a visual representation of the Ubiquiti Unifi users on Google Maps, written in javascript.
 
 - Only supports versions 4.x.x of the Unifi Controller software and higher.
