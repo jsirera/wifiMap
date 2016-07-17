@@ -16,7 +16,7 @@ wifiMap tool offers the following features:
 	<li>IP</li>
 	<li>Radius user name (if you use RADIUS Auth Server for wireless network credentials)</li></ul>
  - You can view AP and station properties by click.
- - AP and labels cant be hidden by checkbox.
+ - AP and labels can be hidden by checkbox.
  - Show user labels in orange or red color by RX TX data transfer.
  - The ability to show some stations with different color putting a text on the note station properties in unifi Controller
 
@@ -44,9 +44,9 @@ Other included libraries:
 -Download project files or clone to published folder of your web server (with PHP support).
 
 ### Configuration
--Edit 'config.php' to configure credentials for Ubiquiti Unifi Controller. Site ID, IP, port, user and password.
--Edit 'config.js' to configure additional settings like FPS, refresh time... (see file for more details)
--Edit index.html and replace my Google Maps API Key with your KEY.
+- Edit 'config.php' to configure credentials for Ubiquiti Unifi Controller. Site ID, IP, port, user and password.
+- Edit 'config.js' to configure additional settings like FPS, refresh time... (see file for more details)
+- Edit index.html and replace my Google Maps API Key with your KEY.
 
 ### Screenshot
 
