@@ -49,6 +49,10 @@ Other included libraries:
 - Edit 'config.js' to configure additional settings like FPS, refresh time... (see file for more details)
 - Edit index.html and replace my Google Maps API Key with your KEY.
 
+### Demo
+- You can see a demo version with ficticious data at:
+<a href="http://control.insmollerussa.cat/demowifimap/">Demo with ficticious data</a>
+
 ### Screenshot
 
 ![alt tag](https://github.com/jsirera/wifiMap/blob/master/images/example.jpg "Sample screenshot")
