@@ -52,14 +52,14 @@ html, body {
 #map { height: 100%; }
 	  
 .etiquetaAP {
-	background: rgba(0,0,0, 0.4);
+	background: rgba(0,0,0, 0.3);
 	color: white;
 	border: 0px solid black;
 	border-radius: 3px;
 	position: absolute;
 	padding: 5px;
 	margin-left: -20px;
-	z-index: 2;
+	z-index: 1;
 }
 
 .etiquetaUsuari {
@@ -70,9 +70,16 @@ html, body {
 	position: absolute;
 	padding: 5px;
 	margin-left: -20px;
-	z-index: 6;
+	z-index: 2;
 }
+.etiquetaUsuariConsumAlt {
+	background: rgba(120,93,0, 0.4);
+}
+.etiquetaUsuariConsumExtrem{
+	background: rgba(128,0,0, 0.4);
+}
+
 .finestraPropietats{
-	position: relative;
-	z-index: 10;
+	
+	
 }
