@@ -28,14 +28,14 @@ THE SOFTWARE.
 */
 
 //TODO canvi icona segons volum de dades
-//TODO posar cercaa a dins del controls
+
 
 var map, 			//Mapa
 	APs = [],		//Array de AP
 	usuaris = [],	//Array de usuaris
 	inputCerca, checkboxAP, checkboxEtiquetes, botoRecarregar; //Interficie afegida al mapa
 	
-//Arranquem interval d'actualització
+
 /**
  * Start everything
  * @param {div DOM object} Div containter for google map
@@ -75,7 +75,7 @@ function start(divMapa, divControls, formInputCerca, formBotoRecarregar, formChe
 }
 
 /**
- * Initialize the map with form elements. Require a div element in the DOM with id = "map"
+ * Initialize the map with form elements.
  * @param {div object} Map container
  * @param {div object} Controls container
  * @return {google map object} Map
@@ -150,10 +150,9 @@ function afegirAPs(objAPs, map){
 			txtOverlay: txt, //Desem objecte txtOverlay (etiqueta)
 			//animation: google.maps.Animation.DROP,
 			icon: imgAP,
-			title: ap.name + " (" + ap.connect_request_ip + ") Usuaris: " + ap.num_sta ,
-			zindex: 1
+			title: ap.name + " (" + ap.connect_request_ip + ") Usuaris: " + ap.num_sta 
 		});
-		
+		marker.setZIndex(1);
 		var imgAPFinestra = 'images/ap_on.png';
 		if (ap.state != 1) { 
 			imgAPFinestra = 'images/ap_off.png'; 
@@ -195,6 +194,7 @@ function afegirAPs(objAPs, map){
 					infowindow.close();
 				else{
 					infowindow.setContent(content);
+					infowindow.setZIndex(5);
 					infowindow.open(map,marker);
 				}
 			};
@@ -206,7 +206,7 @@ function afegirAPs(objAPs, map){
 
 
 /**
- * Show o hide Markers and overlay text fo APs.
+ * Show o hide Markers and overlay text for APs.
  * @param {Array} AP Markers array 
  * @param {google map object} map
  * @param {Boolean} Indicates if AP icon must be showed in the map.
@@ -262,7 +262,11 @@ function afegirUsuaris(objUsuaris, APs, map){
 		if(usuari.hasOwnProperty('1x_identity') && usuari['1x_identity'] != "") etiqueta = (usuari['1x_identity']); //Si existeix usuari, l'afegim a l'etiqueta
 		else if(usuari.name != undefined)  etiqueta = usuari.name; //Si no provem de posar el nom definit al controlador unifi
 		else etiqueta = usuari.hostname; //Si tampoc, aleshores posem el nom de host
-		var txt = new TxtOverlay(latLngUsuari, etiqueta, "etiquetaUsuari", map)
+		//Escollim color etiqueta segons consum
+		var etiquetaClass = "etiquetaUsuari";
+		if (usuari.tx_bytes > CONSUM_DADES_EXTREM || usuari.rx_bytes > CONSUM_DADES_EXTREM) etiquetaClass += " etiquetaUsuariConsumExtrem";
+		else if(usuari.tx_bytes > CONSUM_DADES_ALT || usuari.rx_bytes > CONSUM_DADES_ALT) etiquetaClass += " etiquetaUsuariConsumAlt";
+		var txt = new TxtOverlay(latLngUsuari, etiqueta, etiquetaClass, map)
 		var marker = new google.maps.Marker({
 			position: latLngUsuari,/*{lat: latUsuari, lng: lngUsuari},*/
 			map: map,
@@ -273,9 +277,9 @@ function afegirUsuaris(objUsuaris, APs, map){
 			posicioAP: latLngAP, //Desem posicio AP al mateix usuari per a tindre-ho mes a mà
 			//animation: google.maps.Animation.BOUNCE,
 			icon: imatge,
-			title: usuari.hostname,
-			zindex: 5
+			title: usuari.hostname
 		});
+		marker.setZIndex(3);
 		var nomPersonalitzat = "";
 		if(usuari.hasOwnProperty('1x_identity')) nomPersonalitzat += usuari['1x_identity'];
 		if(usuari.hasOwnProperty('name')) nomPersonalitzat += " " + usuari['name'];
@@ -295,9 +299,9 @@ function afegirUsuaris(objUsuaris, APs, map){
 									'<li>Canal: <b>' + usuari.channel + ' ('+ usuari['radio'] +')</b></li>'+
 									'<li>Senyal: <b>' + usuari.signal + 'dB '+ senyal2Qualitat(usuari.signal) +'%</b></li>'+
 									'<li>Primera connexi&oacute;: <b>' + humanMillis(usuari.first_seen) + '</b></li>'+
-									'<li>assoc_time: <b>' + humanMillis(usuari.assoc_time) + '</b></li>'+
-									'<li>latest_assoc_time: <b>' + humanMillis(usuari.latest_assoc_time) + '</b></li>'+
-									'<li>Ultima activitat fa: <b>' + segonsDesde(usuari.last_seen) + ' segons</b></li>'+
+									'<li>Connexi&oacute; actual: <b>' + humanMillis(usuari.assoc_time) + '</b></li>'+
+									//'<li>&Uacute;ltima connexi&oacute;: <b>' + humanMillis(usuari.latest_assoc_time) + '</b></li>'+
+									'<li>&Uacute;ltima activitat fa: <b>' + segonsDesde(usuari.last_seen) + ' segons</b></li>'+
 									
 								'</ul></p>'+
 							'</div><div>'+
@@ -316,6 +320,7 @@ function afegirUsuaris(objUsuaris, APs, map){
 					infowindow.close();
 				else{
 					infowindow.setContent(content);
+					infowindow.setZIndex(10);
 					infowindow.open(map,marker);
 				}
 			};
@@ -326,7 +331,7 @@ function afegirUsuaris(objUsuaris, APs, map){
 }
 
 /**
- * Rotate user markers arround the AP
+ * Rotate user markers and labels arround the AP. Visivility update
  * @param {Array} Users 
  * @param {google map object} the map
  */
@@ -334,7 +339,6 @@ function moureUsuaris(usuaris, map){
 	//Si s'ha fet algun cerca...
 	var cadenaCerca = inputCerca.value.toLowerCase();
 	
-	//google.maps.visualRefresh = false;
 	for (var i = 0; i < usuaris.length; i++){
 		var mostrar = false;
 		var usuari = usuaris[i];
@@ -405,7 +409,7 @@ function eliminarMarkers(arrayMarkers){
  * Calculate a point from another point and vector (angle + distance)
  * @param {Number} X
  * @param {Number} Y
- * @param {Number} Distance from the first pont
+ * @param {Number} Distance from the first point
  * @param {Number} Angle
  * @return {google maps LatLng object} New point
  */
@@ -449,7 +453,7 @@ function humanFileSize(bytes, si) {
 }
 
 /**
- * Converts dBm signal to qualiti percentage
+ * Converts dBm signal to quality percentage
  * @param {Number} dBm signal
  * @return {Number} Percentage of signal
  */
@@ -464,7 +468,7 @@ function senyal2Qualitat(dBm){
 }
 
 /**
- * Convert seconds from 01/01/1970 (ubiquiti notation) to date
+ * Convert seconds from 01/01/1970 (unifi controller notation) to date
  * @param {Number} seconds
  * @return {String} Date
  */
