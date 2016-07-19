@@ -108,11 +108,11 @@ function initMap(divMapa, divControls) {
  */
 function carregarDades(){
 	botoRecarregar.src = "images/refresh.gif";//className = "botoClicat"; //Indiquem que la petició s'esta processant
-	$.getJSON( "unifi-api/?action=list_devices", function( data ) {
+	$.getJSON( "Unifi-API/?action=list_devices", function( data ) {
 		eliminarMarkers(APs);
 		APs = afegirAPs(data, map);
 		repintarAPs(APs, map, checkboxAP.checked, checkboxEtiquetes.checked);
-		$.getJSON( "unifi-api/?action=list_clients", function( data ) {
+		$.getJSON( "Unifi-API/?action=list_clients", function( data ) {
 			eliminarMarkers(usuaris);
 			usuaris = afegirUsuaris(data, APs, map);
 			botoRecarregar.src = "images/refresh.png"; //Indiquem que la petició ha acabat
