@@ -7,6 +7,7 @@ Release notes for the wifiMap.
 Under development
 - Fixed case-sensitive bug on API call.
 
+
 # Maps 0.22
 
 Released on 2016-07-17.
