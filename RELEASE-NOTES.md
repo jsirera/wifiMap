@@ -1,10 +1,10 @@
 
 
-release notes for the wifiMap. Under development.
+Release notes for the wifiMap.
 
 # Maps 0.23
 
-Under development. 
+Fixex case-sensitive bug on php API call 
 
 # Maps 0.22
 
