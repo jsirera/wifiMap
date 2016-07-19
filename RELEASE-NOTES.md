@@ -4,7 +4,8 @@ Release notes for the wifiMap.
 
 # Maps 0.23
 
-Fixex case-sensitive bug on php API call 
+Under development
+- Fixed case-sensitive bug on API call.
 
 # Maps 0.22
 
