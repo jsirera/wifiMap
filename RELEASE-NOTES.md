@@ -4,6 +4,8 @@ Release notes for the wifiMap.
 
 #wifiMap 0.24
 Under development
+- Show not authenticated users in different colour.
+- bug fixes
  
 #wifiMAp 0.23
 Released on 2016-07-19.
