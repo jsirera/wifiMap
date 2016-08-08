@@ -27,8 +27,6 @@ THE SOFTWARE.
 
 */
 
-//TODO canvi icona segons volum de dades
-
 
 var map, 			//Mapa
 	APs = [],		//Array de AP
@@ -64,7 +62,7 @@ function start(divMapa, divControls, formInputCerca, formBotoRecarregar, formChe
 	botoRecarregar.addEventListener('click', function(event) {
 		carregarDades();
 	});
-		
+
 	//Arranquem refresc automatic
 	var interval = setInterval(function(){carregarDades();	;}, AUTO_ACTUALITZACIO * 1000);
 	
@@ -99,7 +97,6 @@ function initMap(divMapa, divControls) {
 	// Afegir controls al mapa
 	divControls.index = 1;
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(divControls);
-
 	return map;
 }
 
@@ -139,7 +136,9 @@ function afegirAPs(objAPs, map){
 	};
 
 	for (var i = 0; i < objAPs.length; i++){
+		
 		var ap = objAPs[i], imgAP;
+		if (ap.type != "uap") continue; // Si no es un AP no el pintem
 		if (ap.state != 1) imgAP = imgAPoff; else imgAP = imgAPon; //Si el AP no esta actiu -> imatge vermella
 		var latlng = new google.maps.LatLng(ap.x, ap.y);
 		var txt = new TxtOverlay(latlng, ap.name, "etiquetaAP", map)
@@ -150,7 +149,7 @@ function afegirAPs(objAPs, map){
 			txtOverlay: txt, //Desem objecte txtOverlay (etiqueta)
 			//animation: google.maps.Animation.DROP,
 			icon: imgAP,
-			title: ap.name + " (" + ap.connect_request_ip + ") Usuaris: " + ap.num_sta 
+			title: ap.name + ", usuaris: " + ap.num_sta 
 		});
 		marker.setZIndex(1);
 		var imgAPFinestra = 'images/ap_on.png';
@@ -224,7 +223,6 @@ function repintarAPs(APs, map, mostrarAP, mostrarEtiquetes){
 			APs[i].txtOverlay.setMap(null); //amaguem etiqueta
 		}
 	}	
-	
 }
 
 /**
@@ -248,10 +246,17 @@ function afegirUsuaris(objUsuaris, APs, map){
 		//origin: new google.maps.Point(30,30),
 		anchor: new google.maps.Point(0,1)//(47,1)
 	};
+	var imgUsuariNoAutenticat={
+		url: 'images/usuariNoAutenticat.png',
+		//size: new google.maps.Size(80, 80),
+		//origin: new google.maps.Point(30,30),
+		anchor: new google.maps.Point(0,1)//(47,1)
+	};
 	for (var i = 0; i < objUsuaris.length; i++){
 		var usuari = objUsuaris[i];
 		var imatge = imgUsuari1;
 		if (usuari.hasOwnProperty('note') && usuari['note'].toLowerCase().indexOf(NOTA_USUARIS_DIFERENTS) >-1) imatge = imgUsuari2; // Si s'ha de pintar de color diferent...
+		if (usuari.hasOwnProperty('authorized') && usuari['authorized'] == false ) imatge = imgUsuariNoAutenticat; // Si s'ha de pintar de color diferent...
 		var AP = cercarAPUsuari(APs,usuari.ap_mac); //Cerquem el ap del usuari
 		var distancia = -(usuari.signal ) * FACTOR_COBERTURA_DISTANCIA; //Distancia al AP proporcional a la cobertura
 		var angle = Math.random() * 2 * Math.PI;	//Creem angle aleatori en radiants
@@ -260,8 +265,10 @@ function afegirUsuaris(objUsuaris, APs, map){
 		var etiqueta;
 		//Consultem si el usuari s'ha autenticat amb radius
 		if(usuari.hasOwnProperty('1x_identity') && usuari['1x_identity'] != "") etiqueta = (usuari['1x_identity']); //Si existeix usuari, l'afegim a l'etiqueta
-		else if(usuari.name != undefined)  etiqueta = usuari.name; //Si no provem de posar el nom definit al controlador unifi
-		else etiqueta = usuari.hostname; //Si tampoc, aleshores posem el nom de host
+		else if(usuari.name != undefined && usuari.name.trim() != "")  etiqueta = usuari.name; //Si no provem de posar el nom definit al controlador unifi
+		else if(usuari.hostname != undefined && usuari.hostname.trim() != "")  etiqueta = usuari.hostname; //Si no provem de posar el nom de host
+		else etiqueta = usuari.oui; //Si tampoc, aleshores posem la marca del dispositiu.
+		
 		//Escollim color etiqueta segons consum
 		var etiquetaClass = "etiquetaUsuari";
 		if (usuari.tx_bytes > CONSUM_DADES_EXTREM || usuari.rx_bytes > CONSUM_DADES_EXTREM) etiquetaClass += " etiquetaUsuariConsumExtrem";
@@ -272,24 +279,24 @@ function afegirUsuaris(objUsuaris, APs, map){
 			map: map,
 			dades: usuari, 		//Desem tota la informació del usuari al mateix marker
 			txtOverlay: txt, 	//Desem objecte txtOverlay (etiqueta)
-			angle: angle, 		//Desem l'angle creat aleatoriament per poder mouse posteriorment
+			angle: angle, 		//Desem l'angle creat aleatoriament per poder moure posteriorment
 			distancia: distancia,//Desem la distancia calculada per poder moure posteriorment
-			posicioAP: latLngAP, //Desem posicio AP al mateix usuari per a tindre-ho mes a mà
+			posicioAP: latLngAP, //Desem posició AP al mateix usuari per a tindre-ho més a mà
 			//animation: google.maps.Animation.BOUNCE,
 			icon: imatge,
 			title: usuari.hostname
 		});
 		marker.setZIndex(3);
+		if (usuari.hasOwnProperty('authorized') && usuari['authorized'] == false ) etiqueta += " (no autoritzat)";
 		var nomPersonalitzat = "";
-		if(usuari.hasOwnProperty('1x_identity')) nomPersonalitzat += usuari['1x_identity'];
-		if(usuari.hasOwnProperty('name')) nomPersonalitzat += " " + usuari['name'];
+		if(usuari.hasOwnProperty('1x_identity')) nomPersonalitzat += '<li>Username: <b>' + usuari['1x_identity'] + '</b></li>';
+		if(usuari.hasOwnProperty('name') && usuari.name.trim() != "") nomPersonalitzat += '<li>Nom: <b>' + usuari['name'] + '</b></li>';
 		var content = '<div class="finestraPropietats">'+
 							'<h1 class="firstHeading">'+
-								'<img src="' + imatge.url + '"> ' + usuari.hostname +
+								'<img src="' + imatge.url + '"> ' + etiqueta +
 							'</h1>'+
 							'<div>'+
-								'<p><ul>' +
-									'<li>Nom usuari: <b>' + nomPersonalitzat + '</b></li>'+
+								'<p><ul>' + nomPersonalitzat +
 									'<li>Nom de host: <b>' + usuari.hostname + '</b></li>'+
 									'<li>Dispositiu: <b>' + usuari.oui +' </b></li>'+
 									'<li>Ip: <b>' +  usuari.ip + '</b></li>'+
