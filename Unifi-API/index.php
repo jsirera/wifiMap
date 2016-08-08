@@ -31,7 +31,7 @@ load the Unifi API connection class and log in to the controller
 require('class.unifi.php');
 
 $unifidata        = new unifiapi($controlleruser, $controllerpassword, $controllerurl, $site_id, $controllerversion);
-$unifidata->debug = $debug;
+$unifidata->debug = false;
 $loginresults     = $unifidata->login();
 $data 			  = "";
 
