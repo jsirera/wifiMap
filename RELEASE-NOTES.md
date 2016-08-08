@@ -3,8 +3,8 @@
 Release notes for the wifiMap.
 
 #wifiMap 0.24
-Under development
 - Show not authenticated users in different colour.
+- Hide no AP devices
 - bug fixes
  
 #wifiMAp 0.23
