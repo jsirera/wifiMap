@@ -13,6 +13,6 @@ var AUTO_ACTUALITZACIO 								= 60;								//Auto refresh period in seconds
 var NOTA_USUARIS_DIFERENTS 							= "professor";						//en:User "note" in controler properties to paint user in a different color
 																						//cat:Cadena que cerquem a la propietat "note" de Unifi per pintar l'usuari de color diferent
 
-var CONSUM_DADES_ALT								= 100 * 1000000 						//en: Bytes consumed by user for warning color (from last association)
-var CONSUM_DADES_EXTREM								= 300 * 1000000 					//en: Bytes consumed by user for alert color (from last association)
+var CONSUM_DADES_ALT								= 300 * 1000000 					//en: Bytes consumed by user for warning color (from last association)
+var CONSUM_DADES_EXTREM								= 600 * 1000000 					//en: Bytes consumed by user for alert color (from last association)
 ///////////////////////////////////////////////////////////////////////////////////////
